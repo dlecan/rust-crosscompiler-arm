@@ -11,12 +11,15 @@ env:
   - secure: SHBqfQevgggt0CNmJ2nT5ltAz9UYcd3OWM+hOCk2aAxNt3KVqmqqlMJqqcNxt14raHIDFKf5YSP4eWc/nodGXXjvW1Vme2rmB/DoyF4kbZmbQnhOsStsyf4lhhHfORhTSGpCsW8nos3xvzXfG9TL4+2Blt/nmRj4ZwNaL8/yR5Ur95IWGUczJXsZU0TdnGIGlc6KL9Ysw7SLUocWKcdO8ReyFrP7JjrmqdHfXsRsGZVyqop7Q8vujiZUHAj1Ebp5CbegH7E4T0IVcejkiN7UjY22+ZPAsBdp1D2pjXXYB5uDCbvOtyx29DUrMAPdoNlg/TcidMyav4xYw6IfzMSOAJBVg+pS1hVGIVKPGCEeYB+O4V+b8/A8IizfM5aqZvTtNuTxj188hWiH6YKHNtdinV8XeYzTUIlBZVTYJStLpBEmQbNfHBjSRhbyB98VeS03gbpOUyqOnLp0VV9dtLX+USX+Nh7wgoLwgWp++vqUWms5TRIP4mCl+qIXiPVV2iPEKXfyxtteBKq73677tm7ubPbYrr1w7Uga9M9ELC4Jwh6vOh4aEWtawVVCLE7HckUARETy0Im8TTYIw39qeSHrXOjgnHQtplhMV+BCKp/Jgtym6Is13L1AwqKyeDhD0o8EFwGMWAgQoU5Zt4Az1KzZlOQIYtptzFw2Wp4pYpowU9Y=
   # DOCKER_EMAIL
   - secure: "JvpYTNBwavjvUTG4GC2waRDxzgjz8WL9F/xqpCFJI1TPKco3NqU16OXkOJB5RB8JmVnzeQgqOzveiRzMlLRDBdihQLgPZs1+iAOBmSp9qUhyxITImxPsiyuPVrvCn51QFim3PxS89GaNKwPM1rNxTH36Xz8DNP9cvr+ekcwrEJmM2ui5pwdhU6MhQd3t8BCBp5Mtv/4dqeFtzTt8AvwKS8Aifnid19JHnkLF4BjMHSRnYeeITUEF04YYqqca1LDKA92aB0boCHC9hNwljBvXiejaTCsXxQTkckOBjvBd3br57oasMdde9mggAFsAKdoY1OMbI527+Q0+gXXDBtToluy2mkzy1iOCDUXyAMioSs54HY/VPCcI25+ibcmkiINrFqYC3qoW53g3XQmDghzxQSAqp5sJT37MJaBem2VOe2Wd4191VCwi3EaRc7P9Gc7lfOjren9WwhEczWmKIvEdR2CFmzBszBnpVTcl68xa7xE0UQpd3KVcl/QL/wGalRRntZsQaojPTS8hII/QyVVfLJarYk0DmN5N2wWmFq7UxhIQvL0kIk3yrFCV/yVtcrTrWyVcvqNC6Cfnr4EJGE+zhPuPkrVfmFnF1vAR/RalwI3EiFFEmowVMN9Q6GbRBCFuD/2h8N3sYFtecEQm+nfbGGi48aXLmFwkwQ9r7nsJYNg="
+  matrix:
+  - TAG=stable PATH=arm
+  - TAG=stable-stretch PATH=arm-stretch
 
 script:
-  - docker build -t dlecan/rust-crosscompiler-arm:stable arm
+  - docker build -t dlecan/rust-crosscompiler-arm:${TAG} ${PATH}
 
 after_success:
-  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" && docker push dlecan/rust-crosscompiler-arm
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" && docker push dlecan/rust-crosscompiler-arm:${TAG}
   
   
 
