@@ -98,6 +98,18 @@ sudo chown -R `stat -c %u:%g $HOME` $(pwd) ~/.cargo
 
 You can then `rxc cargo build`.
 
+## Debian Stretch
+
+Rust projects that have a dependency or transititive dependency on
+[openssl-sys](https://crates.io/crates/openssl-sys) need to be compiled with
+the correct openssl version for their target. In practice, this means that Rust
+code compiled on Debian Jessie will expect libssl.so.1.0.0 and not run on
+Debian Stretch with libssl.so.1.0.2, and vice versa.
+
+To compile for a Debian Stretch target, use
+`dlecan/rust-crosscompiler-arm:stable-stretch`, which has a Debian Stretch
+base.
+
 ## Usage with script
 
 ## Inspiration
